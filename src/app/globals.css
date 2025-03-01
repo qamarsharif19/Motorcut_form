@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.react-tel-input .form-control {
+  width: fit-content !important;
+}
+button.bg-blue-500.text-white.p-2.w-full {
+  background-color: #793ee6;
+}
+
+.react-tel-input .form-control {
+  height: 100% !important;
+}
+input.border.p-2.w-full {
+  color: black !important;
+}
