@@ -1,9 +1,8 @@
-"use client"; 
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { create } from "zustand";
-import emailjs from "@emailjs/browser";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
@@ -33,18 +32,21 @@ const useFormStore = create<{
   },
 }));
 
-const sendPartialData = (data: FormFields) => {
-    emailjs
-      .send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        data as Record<string, unknown>,
-        process.env.NEXT_PUBLIC_EMAILJS_USER_ID!
-      )
-      .catch(() => {
-        console.log("Error sending partial data");
-      });
-  };
+const sendPartialData = async (data: FormFields) => {
+  try {
+    const response = await fetch("/api/send-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) throw new Error("Failed to send email");
+
+    console.log("Email sent successfully!");
+  } catch (error) {
+    console.error("Error sending form data:", error);
+  }
+};
 
 const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   const { register, handleSubmit, setValue } = useForm<FormFields>();
@@ -115,16 +117,10 @@ const StepThree: React.FC<{ prevStep: () => void }> = ({ prevStep }) => {
   return (
     <div>
       <form onSubmit={onSubmit} className="space-y-4">
-        <div className="flex justify-between">
-          <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
-          <button type="submit" className="bg-green-500 text-white p-2">Submit</button>
-        </div>
+        <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
+        <button type="submit" className="bg-green-500 text-white p-2">Submit</button>
       </form>
-      {successMessage && (
-        <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">
-          <p>{successMessage}</p>
-        </div>
-      )}
+      {successMessage && <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">{successMessage}</div>}
     </div>
   );
 };
