@@ -21,7 +21,7 @@ body {
 }
 
 .react-tel-input .form-control {
-  width: fit-content !important;
+  width: 100% !important;
 }
 button.bg-blue-500.text-white.p-2.w-full {
   background-color: #793ee6;
