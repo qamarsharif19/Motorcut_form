@@ -18,24 +18,39 @@
 body {
   background-color: white;
   color: var(--foreground);
-  font-family: Manrope, Helvetica, sans-serif;
+  font-family: 'Manrope', sans-serif;
  /* background: url('/colorkit.webp') no-repeat center center fixed; */
   background-size: cover;
+}
+input, textarea {
+  font-family: 'Manrope', sans-serif !important;
+  padding: 5px 12px;
+  box-shadow: 0px 1px 2px 0px #1018280D !important;
+  border: 1px solid  #E2E8F0 !important;
+  padding: 9px 12px;
+
+}
+
+input:focus, textarea:focus {
+  outline: none;
 }
 
 
 .react-tel-input .form-control {
   width: 100% !important;
 }
+
 button.bg-blue-500.text-white.p-2.w-full {
   background-color: #793ee6;
 }
 
 .react-tel-input .form-control {
-  height: 100% !important;
+  height: 35px !important;
 }
-input.border.p-2.w-full {
-  color: black !important;
+input  {
+  box-shadow: 0px 1px 2px 0px #1018280D !important;
+  border: 1px solid  #E2E8F0 !important;
+  border-radius: 8px;
 }
 header {
   background: #7E43E9 !important;
@@ -52,13 +67,17 @@ textarea.border.border-gray-300.p-3.w-full.rounded-lg.focus\:ring-2.focus\:ring-
 }
 label {
  color: #334155 !important;
+ margin-bottom: 6px;
+}
+.react-tel-input {
+  font-family: 'Manrope', sans-serif;
 }
 .imagediv {
   max-width: 644px;
 }
 .formdiv {
   max-width: 644px;
-  box-shadow: 0 0 10px #ebebeb;
+ 
   padding: 20px;
   border-radius: 20px;
 }
@@ -69,4 +88,68 @@ label {
   margin: auto;
   gap: 30px;
   padding: 3%;
+}
+
+p.fillform {
+  color: #64748B;
+  text-align: center;
+}
+input::placeholder {
+  color: #E2E8F0 !important;
+ 
+}
+textarea::placeholder {
+  color: #E2E8F0 !important;
+}
+textarea {
+  color: #000 !important;
+  border-radius: 8px;
+}
+
+li.country {
+  background: #9333ea;
+}
+li span.dial-code {
+  color: rgb(255, 255, 255) !important;
+}
+li:hover span.dial-code {
+  color: rgb(0, 0, 0) !important;
+}
+
+.react-tel-input .country-list .country .dial-code {
+  color: #000;
+}
+.react-tel-input .country-list .country:hover {
+
+  color: black !important;
+}
+button {
+  padding: 12px;
+  border-radius: 48px;
+}
+input {
+  color: #000;
+}
+li:focus .country-name  {
+  color: rgb(0, 0, 0) !important;
+}
+
+.react-tel-input .country-list .country.highlight{
+  color: black;
+}
+li.country.preferred.active.highlight .dial-code{
+  color: black !important;
+}
+@media only screen and (max-width:767px) {
+  .maindiv {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .imagediv {
+    max-width: 100%;
+  }
+  .formdiv {
+    max-width: 100%;
+  }
 }

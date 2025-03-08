@@ -62,7 +62,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
   {/* Heading */}
   <h1 className="text-2xl font-bold text-center">Register your Interest</h1>
-  <p className="text-gray-600 text-center">
+  <p className="fillform">
     Kindly fill out the form below to proceed with creating your account. A member of our team will reach out to you to assist with your free trial set-up.
   </p>
 
@@ -73,7 +73,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
       <input
         {...register("first_name", { required: true })}
         placeholder="Enter your first name"
-        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+        className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
       />
     </div>
     <div>
@@ -81,7 +81,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
       <input
         {...register("last_name", { required: true })}
         placeholder="Enter your last name"
-        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+        className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
       />
     </div>
   </div>
@@ -92,7 +92,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
     <input
       {...register("user_email", { required: true })}
       placeholder="Enter your email"
-      className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+      className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
     />
   </div>
 
@@ -103,7 +103,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
       <PhoneInput
         country={"us"}
         onChange={(phone) => setValue("user_phone", phone)}
-        inputClass="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+        inputClass="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
         containerClass="w-full"
       />
     </div>
@@ -112,7 +112,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
       <input
         {...register("country", { required: true })}
         placeholder="Enter your country"
-        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+        className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
       />
     </div>
   </div>
@@ -124,7 +124,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
       <input
         {...register("company_name", { required: true })}
         placeholder="Enter your company name"
-        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+        className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500"
       />
     </div>
     <div>
@@ -132,7 +132,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
       <input
         {...register("company_url", { required: true })}
         placeholder="Enter your website URL"
-        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+        className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500"
       />
     </div>
   </div>
@@ -143,7 +143,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
     <input
       {...register("inventory_size", { required: true })}
       placeholder="Enter your inventory size"
-      className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+      className="border border-gray-300 w-full  focus:ring-2 focus:ring-purple-500"
     />
   </div>
 
@@ -153,7 +153,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
     <textarea
       {...register("user_message")}
       placeholder="Write your message here..."
-      className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+      className="border border-gray-300  w-full  focus:ring-2 focus:ring-purple-500"
       rows={3}
     />
   </div>
@@ -161,7 +161,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   {/* Submit Button */}
   <button
     type="submit"
-    className="bg-purple-600 text-white p-3 w-full rounded-lg hover:bg-purple-700 transition"
+    className="bg-purple-600 text-white w-full hover:bg-purple-700 transition"
   >
     Next
   </button>
@@ -224,7 +224,7 @@ const MultiStepForm: React.FC = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="">
+    <div className="test">
       {step === 1 && <StepOne nextStep={() => setStep(2)} />}
       {step === 2 && <StepTwo prevStep={() => setStep(1)} nextStep={() => setStep(3)} />}
       {step === 3 && <StepThree prevStep={() => setStep(2)} />}
