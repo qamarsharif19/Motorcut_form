@@ -17,7 +17,12 @@ export default function Page() {
 
       {/* Form Component */}
       <main className="mt-6">
+        <div className="maindiv">
         <CustomForm />
+        <div className="imagediv">
+    <img src="/Main Frame.png" alt="Registration" className="mx-w-full h-auto" />
+    </div>
+    </div>
       </main>
     </div>
   );

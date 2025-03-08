@@ -58,106 +58,116 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-    {/* Heading */}
-    <h1 className="text-2xl font-bold text-center">Register your Interest</h1>
-    <p className="text-gray-600 text-center">
-      Kindly fill out the form below to proceed with creating your account. A member of our team will reach out to you to assist with your free trial set-up.
-    </p>
-  
-    {/* First Name & Last Name */}
-    <div className="grid grid-cols-2 gap-4">
-      <div>
-        <label className="block text-gray-700 font-medium">First Name *</label>
-        <input
-          {...register("first_name", { required: true })}
-          className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700 font-medium">Last Name *</label>
-        <input
-          {...register("last_name", { required: true })}
-          className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
-        />
-      </div>
-    </div>
-  
-    {/* Email */}
+    <div className="formdiv">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+  {/* Heading */}
+  <h1 className="text-2xl font-bold text-center">Register your Interest</h1>
+  <p className="text-gray-600 text-center">
+    Kindly fill out the form below to proceed with creating your account. A member of our team will reach out to you to assist with your free trial set-up.
+  </p>
+
+  {/* First Name & Last Name */}
+  <div className="grid grid-cols-2 gap-4">
     <div>
-      <label className="block text-gray-700 font-medium">Email *</label>
+      <label className="block font-medium">First Name *</label>
       <input
-        {...register("user_email", { required: true })}
+        {...register("first_name", { required: true })}
+        placeholder="Enter your first name"
         className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
       />
     </div>
-  
-    {/* Phone & Country */}
-    <div className="grid grid-cols-2 gap-4">
-      <div>
-        <label className="block text-gray-700 font-medium">Phone *</label>
-        <PhoneInput
-          country={"us"}
-          onChange={(phone) => setValue("user_phone", phone)}
-          inputClass="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
-          containerClass="w-full"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700 font-medium">Country *</label>
-        <input
-          {...register("country", { required: true })}
-          className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
-        />
-      </div>
-    </div>
-  
-    {/* Company Name & Website URL */}
-    <div className="grid grid-cols-2 gap-4">
-      <div>
-        <label className="block text-gray-700 font-medium">Company Name *</label>
-        <input
-          {...register("company_name", { required: true })}
-          className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
-        />
-      </div>
-      <div>
-        <label className="block text-gray-700 font-medium">Website URL *</label>
-        <input
-          {...register("company_url", { required: true })}
-          className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
-        />
-      </div>
-    </div>
-  
-    {/* Inventory Size */}
     <div>
-      <label className="block text-gray-700 font-medium">Inventory Size *</label>
+      <label className="block font-medium">Last Name *</label>
       <input
-        {...register("inventory_size", { required: true })}
+        {...register("last_name", { required: true })}
+        placeholder="Enter your last name"
         className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
       />
     </div>
-  
-    {/* Leave a Message */}
+  </div>
+
+  {/* Email */}
+  <div>
+    <label className="block font-medium">Email *</label>
+    <input
+      {...register("user_email", { required: true })}
+      placeholder="Enter your email"
+      className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+    />
+  </div>
+
+  {/* Phone & Country */}
+  <div className="grid grid-cols-2 gap-4">
     <div>
-      <label className="block text-gray-700 font-medium">Leave a Message</label>
-      <textarea
-        {...register("user_message")}
-        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
-        rows={3}
+      <label className="block font-medium">Phone *</label>
+      <PhoneInput
+        country={"us"}
+        onChange={(phone) => setValue("user_phone", phone)}
+        inputClass="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+        containerClass="w-full"
       />
     </div>
-  
-    {/* Submit Button */}
-    <button
-      type="submit"
-      className="bg-purple-600 text-white p-3 w-full rounded-lg hover:bg-purple-700 transition"
-    >
-      Next
-    </button>
-  </form>
-  
+    <div>
+      <label className="block font-medium">Country *</label>
+      <input
+        {...register("country", { required: true })}
+        placeholder="Enter your country"
+        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+      />
+    </div>
+  </div>
+
+  {/* Company Name & Website URL */}
+  <div className="grid grid-cols-2 gap-4">
+    <div>
+      <label className="block font-medium">Company Name *</label>
+      <input
+        {...register("company_name", { required: true })}
+        placeholder="Enter your company name"
+        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+      />
+    </div>
+    <div>
+      <label className="block font-medium">Website URL *</label>
+      <input
+        {...register("company_url", { required: true })}
+        placeholder="Enter your website URL"
+        className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+      />
+    </div>
+  </div>
+
+  {/* Inventory Size */}
+  <div>
+    <label className="block font-medium">Inventory Size *</label>
+    <input
+      {...register("inventory_size", { required: true })}
+      placeholder="Enter your inventory size"
+      className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+    />
+  </div>
+
+  {/* Leave a Message */}
+  <div>
+    <label className="block font-medium">Leave a Message</label>
+    <textarea
+      {...register("user_message")}
+      placeholder="Write your message here..."
+      className="border border-gray-300 p-3 w-full rounded-lg focus:ring-2 focus:ring-purple-500"
+      rows={3}
+    />
+  </div>
+
+  {/* Submit Button */}
+  <button
+    type="submit"
+    className="bg-purple-600 text-white p-3 w-full rounded-lg hover:bg-purple-700 transition"
+  >
+    Next
+  </button>
+</form>
+
+    </div>
 
   );
 };
@@ -214,7 +224,7 @@ const MultiStepForm: React.FC = () => {
   if (!isMounted) return null;
 
   return (
-    <div className="p-4 max-w-lg mx-auto bg-white rounded shadow-lg">
+    <div className="">
       {step === 1 && <StepOne nextStep={() => setStep(2)} />}
       {step === 2 && <StepTwo prevStep={() => setStep(1)} nextStep={() => setStep(3)} />}
       {step === 3 && <StepThree prevStep={() => setStep(2)} />}

@@ -16,9 +16,10 @@
 
 
 body {
+  background-color: white;
   color: var(--foreground);
   font-family: Manrope, Helvetica, sans-serif;
-  background: url('/colorkit.webp') no-repeat center center fixed;
+ /* background: url('/colorkit.webp') no-repeat center center fixed; */
   background-size: cover;
 }
 
@@ -45,9 +46,27 @@ h1 {
 input.border.border-gray-300.p-3.w-full.rounded-lg.focus\:ring-2.focus\:ring-purple-500 {
   color: black;
 }
-body {
-  padding: 0 16px 16px 16px;
-}
+
 textarea.border.border-gray-300.p-3.w-full.rounded-lg.focus\:ring-2.focus\:ring-purple-500{
   color: #000 !important;
+}
+label {
+ color: #334155 !important;
+}
+.imagediv {
+  max-width: 644px;
+}
+.formdiv {
+  max-width: 644px;
+  box-shadow: 0 0 10px #ebebeb;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.maindiv {
+  max-width: 1368px;
+  display: flex;
+  margin: auto;
+  gap: 30px;
+  padding: 3%;
 }
