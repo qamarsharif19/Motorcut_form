@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
         const mailOptions = {
             from: `"${first_name} ${last_name}" <${process.env.EMAIL_USER}>`,
-            to: "qamarwordpress@gmail.com, rednice@filmla.org", // Correct format
+            to: "qamarwordpress@gmail.com, rednice@filmla.org, support@motorcut.com", // Correct format
             subject: "New Form Submission",
             text: `You received a new message from ${first_name} ${last_name}.\n\nEmail: ${user_email}\nPhone: ${user_phone}\nCompany: ${company_name}\nWebsite: ${company_url}\nCountry: ${country}\n\nMessage:\n${user_message}`,
         };
