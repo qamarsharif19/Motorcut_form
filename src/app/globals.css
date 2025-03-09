@@ -77,9 +77,6 @@ label {
 }
 .formdiv {
   max-width: 644px;
- 
-  padding: 20px;
-  border-radius: 20px;
 }
 
 .maindiv {
@@ -189,5 +186,8 @@ p.fillform {
 }
 label {
   font-size: 14px;
+}
+.maindiv {
+  padding: 3% 4%;
 }
 }
