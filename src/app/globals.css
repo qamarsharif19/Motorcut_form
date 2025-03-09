@@ -83,8 +83,11 @@ label {
 }
 
 .maindiv {
-  max-width: 1368px;
-  display: flex;
+  max-width: 1103px;
+  display: flex
+;
+  justify-content: space-between;
+  align-items: center;
   margin: auto;
   gap: 30px;
   padding: 3%;
@@ -140,6 +143,28 @@ li:focus .country-name  {
 li.country.preferred.active.highlight .dial-code{
   color: black !important;
 }
+img.mx-w-full.h-auto {
+  height: 500px;
+  object-fit: contain;
+}
+.test {
+  width: 50%;
+}
+button.backq {
+  padding: 12px 25px;
+  width: 120px !important;
+  background: black;
+}
+button.nextq, button.submitq {
+  padding: 12px 25px;
+  width: 120px !important;
+  background: #7D3EDE;
+}
+.formq {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
 @media only screen and (max-width:767px) {
   .maindiv {
     max-width: 100%;
@@ -152,4 +177,17 @@ li.country.preferred.active.highlight .dial-code{
   .formdiv {
     max-width: 100%;
   }
+  .test {
+    width: 100%;
+  }
+  input {
+    font-size: 12px;
+}
+p.fillform {
+  font-size: 16px;
+  line-height: 22px;
+}
+label {
+  font-size: 14px;
+}
 }

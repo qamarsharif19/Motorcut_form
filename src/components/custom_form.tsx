@@ -161,7 +161,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   {/* Submit Button */}
   <button
     type="submit"
-    className="bg-purple-600 text-white w-full hover:bg-purple-700 transition"
+    className="nextq bg-purple-600 text-white w-full hover:bg-purple-700 transition"
   >
     Next
   </button>
@@ -185,8 +185,8 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <input {...register("user_message", { required: true })} placeholder="Message" className="border p-2 w-full" />
       <div className="flex justify-between">
-        <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
-        <button type="submit" className="bg-blue-500 text-white p-2">Next</button>
+        <button type="button" onClick={prevStep} className="backq bg-gray-500 text-white p-2">Back</button>
+        <button type="submit" className="nextq bg-blue-500 text-white p-2">Next</button>
       </div>
     </form>
   );
@@ -204,9 +204,9 @@ const StepThree: React.FC<{ prevStep: () => void }> = ({ prevStep }) => {
 
   return (
     <div>
-      <form onSubmit={onSubmit} className="space-y-4">
-        <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
-        <button type="submit" className="bg-green-500 text-white p-2">Submit</button>
+      <form onSubmit={onSubmit} className="formq space-y-4">
+        <button type="button" onClick={prevStep} className="backq bg-gray-500 text-white p-2">Back</button>
+        <button type="submit" className="submitq bg-green-500 text-white p-2">Submit</button>
       </form>
       {successMessage && <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">{successMessage}</div>}
     </div>
