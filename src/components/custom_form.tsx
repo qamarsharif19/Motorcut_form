@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { create } from "zustand";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import Image from "next/image";
+
 
 interface FormFields {
   [key: string]: unknown;
@@ -61,7 +63,14 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
     <div className="formdiv">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Heading */}
-        <h1 className="text-2xl font-bold text-center">Register your Interest</h1>
+         <Image 
+            src="/motorcut_logo.png"  
+            alt="Company Logo" 
+            width={150} 
+            height={50} 
+            className="h-auto"
+          />
+        <h1 className="text-2xl font-bold text-left">Register your Interest</h1>
         <p className="fillform">
           Kindly fill out the form below to proceed with creating your account. A member of our team will reach out to you to assist with your free trial set-up.
         </p>

@@ -74,14 +74,16 @@ label {
   font-family: 'Manrope', sans-serif;
 }
 .imagediv {
-  max-width: 644px;
+  max-width: 50%;
 }
+
 .formdiv {
   max-width: 644px;
 }
 
 .maindiv {
   max-width: 1103px;
+  align-items: stretch !important;
   display: flex
 ;
   justify-content: space-between;
@@ -93,7 +95,7 @@ label {
 
 p.fillform {
   color: #64748B;
-  text-align: center;
+  text-align: left;
 }
 input::placeholder {
   color: #94A3B8 !important;
@@ -169,11 +171,35 @@ button.nextq, button.submitq {
   align-items: center;
   display: flex;
 }
+
+  .imagediv {
+    width: 100%;
+    border-radius: 25px;
+  }
+    .imagediv {
+      background-image: url('/bg.png'); /* Path ko apni project directory k mutabiq adjust karein */
+      background-size: cover; /* Image ko pura fit karne k liye */
+      background-position: center; /* Image center align */
+      background-repeat: no-repeat; /* Repeat na ho */
+    }
+    .imagediv {
+      display: flex;
+      align-items: center;
+  ;
+  }
+    .formdiv, .imagediv {
+      flex: 1;
+      min-height: 100%;
+    }
+    .logoimage {
+      width: 227px;
+    }
 @media only screen and (max-width:767px) {
   .maindiv {
     max-width: 100%;
     display: flex;
     flex-wrap: wrap;
+    
   }
   .imagediv {
     max-width: 100%;
