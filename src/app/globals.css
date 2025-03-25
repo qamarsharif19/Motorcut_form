@@ -95,19 +95,24 @@ p.fillform {
   text-align: center;
 }
 input::placeholder {
-  color: #E2E8F0 !important;
+  color: #94A3B8 !important;
+  font-family: 'Manrope', sans-serif;
+ 
  
 }
 textarea::placeholder {
-  color: #E2E8F0 !important;
+  color: #94A3B8 !important;
+  font-family: 'Manrope', sans-serif;
 }
 textarea {
   color: #000 !important;
   border-radius: 8px;
+  font-family: 'Manrope', sans-serif;
 }
 
 li.country {
   background: #9333ea;
+  font-family: 'Manrope', sans-serif;
 }
 li span.dial-code {
   color: rgb(255, 255, 255) !important;
@@ -124,6 +129,7 @@ li:hover span.dial-code {
   color: black !important;
 }
 button {
+  font-family: 'Manrope', sans-serif;
   padding: 12px;
   border-radius: 48px;
 }

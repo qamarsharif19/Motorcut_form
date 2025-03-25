@@ -60,115 +60,113 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   return (
     <div className="formdiv">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-  {/* Heading */}
-  <h1 className="text-2xl font-bold text-center">Register your Interest</h1>
-  <p className="fillform">
-    Kindly fill out the form below to proceed with creating your account. A member of our team will reach out to you to assist with your free trial set-up.
-  </p>
+        {/* Heading */}
+        <h1 className="text-2xl font-bold text-center">Register your Interest</h1>
+        <p className="fillform">
+          Kindly fill out the form below to proceed with creating your account. A member of our team will reach out to you to assist with your free trial set-up.
+        </p>
 
-  {/* First Name & Last Name */}
-  <div className="grid grid-cols-2 gap-4">
-    <div>
-      <label className="block font-medium">First Name *</label>
-      <input
-        {...register("first_name", { required: true })}
-        placeholder="Enter your first name"
-        className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
-      />
+        {/* First Name & Last Name */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block font-medium">First Name *</label>
+            <input
+              {...register("first_name", { required: true })}
+              placeholder="Enter your first name"
+              className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Last Name *</label>
+            <input
+              {...register("last_name", { required: true })}
+              placeholder="Enter your last name"
+              className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+            />
+          </div>
+        </div>
+
+        {/* Email */}
+        <div>
+          <label className="block font-medium">Email *</label>
+          <input
+            {...register("user_email", { required: true })}
+            placeholder="Enter your email"
+            className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+          />
+        </div>
+
+        {/* Phone & Country */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block font-medium">Phone *</label>
+            <PhoneInput
+              country={"us"}
+              onChange={(phone) => setValue("user_phone", phone)}
+              inputClass="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500"
+              containerClass="w-full"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Country *</label>
+            <input
+              {...register("country", { required: true })}
+              placeholder="Enter your country"
+              className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+            />
+          </div>
+        </div>
+
+        {/* Company Name & Website URL */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block font-medium">Company Name *</label>
+            <input
+              {...register("company_name", { required: true })}
+              placeholder="Enter your company name"
+              className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+            />
+          </div>
+          <div>
+            <label className="block font-medium">Website URL *</label>
+            <input
+              {...register("company_url", { required: true })}
+              placeholder="Enter your website URL"
+              className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+            />
+          </div>
+        </div>
+
+        {/* Inventory Size */}
+        <div>
+          <label className="block font-medium">Inventory Size *</label>
+          <input
+            {...register("inventory_size", { required: true })}
+            placeholder="Enter your inventory size"
+            className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+          />
+        </div>
+
+        {/* Leave a Message */}
+        <div>
+          <label className="block font-medium">Leave a Message</label>
+          <textarea
+            {...register("user_message")}
+            placeholder="Write your message here..."
+            className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
+            rows={3}
+          />
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="nextq bg-purple-600 text-white w-full hover:bg-purple-700 transition"
+        >
+          Next
+        </button>
+      </form>
     </div>
-    <div>
-      <label className="block font-medium">Last Name *</label>
-      <input
-        {...register("last_name", { required: true })}
-        placeholder="Enter your last name"
-        className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
-      />
-    </div>
-  </div>
-
-  {/* Email */}
-  <div>
-    <label className="block font-medium">Email *</label>
-    <input
-      {...register("user_email", { required: true })}
-      placeholder="Enter your email"
-      className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
-    />
-  </div>
-
-  {/* Phone & Country */}
-  <div className="grid grid-cols-2 gap-4">
-    <div>
-      <label className="block font-medium">Phone *</label>
-      <PhoneInput
-        country={"us"}
-        onChange={(phone) => setValue("user_phone", phone)}
-        inputClass="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
-        containerClass="w-full"
-      />
-    </div>
-    <div>
-      <label className="block font-medium">Country *</label>
-      <input
-        {...register("country", { required: true })}
-        placeholder="Enter your country"
-        className="border border-gray-300  w-full focus:ring-2 focus:ring-purple-500"
-      />
-    </div>
-  </div>
-
-  {/* Company Name & Website URL */}
-  <div className="grid grid-cols-2 gap-4">
-    <div>
-      <label className="block font-medium">Company Name *</label>
-      <input
-        {...register("company_name", { required: true })}
-        placeholder="Enter your company name"
-        className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500"
-      />
-    </div>
-    <div>
-      <label className="block font-medium">Website URL *</label>
-      <input
-        {...register("company_url", { required: true })}
-        placeholder="Enter your website URL"
-        className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500"
-      />
-    </div>
-  </div>
-
-  {/* Inventory Size */}
-  <div>
-    <label className="block font-medium">Inventory Size *</label>
-    <input
-      {...register("inventory_size", { required: true })}
-      placeholder="Enter your inventory size"
-      className="border border-gray-300 w-full  focus:ring-2 focus:ring-purple-500"
-    />
-  </div>
-
-  {/* Leave a Message */}
-  <div>
-    <label className="block font-medium">Leave a Message</label>
-    <textarea
-      {...register("user_message")}
-      placeholder="Write your message here..."
-      className="border border-gray-300  w-full  focus:ring-2 focus:ring-purple-500"
-      rows={3}
-    />
-  </div>
-
-  {/* Submit Button */}
-  <button
-    type="submit"
-    className="nextq bg-purple-600 text-white w-full hover:bg-purple-700 transition"
-  >
-    Next
-  </button>
-</form>
-
-    </div>
-
   );
 };
 
@@ -183,7 +181,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <input {...register("user_message", { required: true })} placeholder="Message" className="border p-2 w-full" />
+      <input {...register("user_message", { required: true })} placeholder="Message" className="border p-2 w-full placeholder-[#94A3B8]" />
       <div className="flex justify-between">
         <button type="button" onClick={prevStep} className="backq bg-gray-500 text-white p-2">Back</button>
         <button type="submit" className="nextq bg-blue-500 text-white p-2">Next</button>
