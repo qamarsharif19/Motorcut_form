@@ -78,7 +78,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
         </p>
 
         {/* First Name & Last Name */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 umr">
           <div>
             <label className="block font-medium">First Name *</label>
             <input
