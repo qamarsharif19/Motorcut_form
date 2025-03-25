@@ -1,5 +1,5 @@
 import CustomForm from "@/components/custom_form";
-
+import Image from "next/image";
 
 export default function Page() {
   return (
@@ -12,7 +12,8 @@ export default function Page() {
         <div className="maindiv">
         <CustomForm />
         <div className="imagediv">
-    <img src="/main_container.png" alt="Registration" className="mx-w-full h-auto" />
+    <Image src="/main_container.png" alt="Registration" width={500} height={300} className="mx-w-full h-auto" />
+
     </div>
     </div>
       </main>
