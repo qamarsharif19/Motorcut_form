@@ -1,5 +1,5 @@
 import CustomForm from "@/components/custom_form";
-import Image from "next/image";
+
 
 export default function Page() {
   return (
