@@ -199,6 +199,11 @@ button.nextq, button.submitq {
     label, input, textarea {
       font-size: 14px;
     }
+    .logo_image_div {
+      display: flex;
+
+      justify-content: center;
+  }
     
 @media only screen and (max-width:767px) {
   .maindiv {

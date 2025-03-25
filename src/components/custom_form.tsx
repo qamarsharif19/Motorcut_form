@@ -63,16 +63,18 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
     <div className="formdiv">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Heading */}
+        <div className="logo_image_div">
          <Image 
             src="/motorcut_logo.png"  
             alt="Company Logo" 
             width={150} 
             height={50} 
-            className="h-auto"
+            className="h-auto logoimage"
           />
+          </div>
         <h1 className="text-2xl font-bold text-left">Register your Interest</h1>
         <p className="fillform">
-          Kindly fill out the form below to proceed with creating your account. A member of our team will reach out to you to assist with your free trial set-up.
+          Kindly fill out the form below to register your interest. A member of the team will reach out to you to assist with setting up you're free trial.
         </p>
 
         {/* First Name & Last Name */}
@@ -110,7 +112,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           <div>
             <label className="block font-medium">Phone *</label>
             <PhoneInput
-              country={"us"}
+              country={"gb"}
               onChange={(phone) => setValue("user_phone", phone)}
               inputClass="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500"
               containerClass="w-full"

@@ -21,7 +21,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Motorcut Custom Form",
+  title: "MotorCut | Register Interest",
   description: "Custom form for leads",
 };
 
