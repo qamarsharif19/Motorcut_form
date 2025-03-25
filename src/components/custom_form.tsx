@@ -74,7 +74,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           </div>
         <h1 className="text-2xl font-bold text-left">Register your Interest</h1>
         <p className="fillform">
-          Kindly fill out the form below to register your interest. A member of the team will reach out to you to assist with setting up you're free trial.
+          Kindly fill out the form below to register your interest. A member of the team will reach out to you to assist with setting up you&apos;re free trial.
         </p>
 
         {/* First Name & Last Name */}
