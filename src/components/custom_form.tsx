@@ -7,7 +7,6 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Image from "next/image";
 
-
 interface FormFields {
   [key: string]: unknown;
   first_name?: string;
@@ -18,6 +17,7 @@ interface FormFields {
   company_url?: string;
   country?: string;
   user_message?: string;
+  file_upload?: string;
 }
 
 const useFormStore = create<{
@@ -182,24 +182,73 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
 };
 
 const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ prevStep, nextStep }) => {
-  const { register, handleSubmit } = useForm<FormFields>();
+  const { register, handleSubmit } = useForm();
   const updateFormData = useFormStore((state) => state.updateFormData);
+  const [fileList, setFileList] = useState<string[]>([]);
+  const [selectedFile, setSelectedFile] = useState("");
 
-  const onSubmit = (data: FormFields) => {
-    updateFormData(data);
+  useEffect(() => {
+    const fetchFiles = async () => {
+      try {
+        const response = await fetch("/api/list-public-files");
+        if (!response.ok) throw new Error("Failed to fetch files");
+        const files = await response.json();
+        setFileList(files);
+      } catch (error) {
+        console.error("Error fetching files:", error);
+      }
+    };
+    fetchFiles();
+  }, []);
+
+  const onSubmit = () => {
+    if (!selectedFile) {
+      alert("Please select a file before proceeding.");
+      return;
+    }
+    updateFormData({ file_upload: selectedFile });
     nextStep();
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <input {...register("user_message", { required: true })} placeholder="Message" className="border p-2 w-full placeholder-[#94A3B8]" />
+      <label className="block font-medium">Select a file *</label>
+      <div className="border p-2 w-full relative">
+        <button
+          type="button"
+          className="bg-gray-200 p-2 rounded w-full text-left"
+          onClick={() => document.getElementById("fileDropdown")?.classList.toggle("hidden")}
+        >
+          {selectedFile || "Select a file"}
+        </button>
+        <div id="fileDropdown" className="hidden absolute border mt-1 p-2 max-h-40 overflow-y-auto bg-white w-full">
+          {fileList.length > 0 ? (
+            fileList.map((file, index) => (
+              <div
+                key={index}
+                className="p-2 cursor-pointer hover:bg-gray-300"
+                onClick={() => {
+                  setSelectedFile(file);
+                  document.getElementById("fileDropdown")?.classList.add("hidden");
+                }}
+              >
+                {file}
+              </div>
+            ))
+          ) : (
+            <div className="p-2 text-gray-500">No files available</div>
+          )}
+        </div>
+      </div>
       <div className="flex justify-between">
-        <button type="button" onClick={prevStep} className="backq bg-gray-500 text-white p-2">Back</button>
-        <button type="submit" className="nextq bg-blue-500 text-white p-2">Next</button>
+        <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
+        <button type="submit" className="bg-blue-500 text-white p-2">Next</button>
       </div>
     </form>
   );
 };
+
+
 
 const StepThree: React.FC<{ prevStep: () => void }> = ({ prevStep }) => {
   const formData = useFormStore((state) => state.formData);
