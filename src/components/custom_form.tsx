@@ -182,7 +182,7 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
 };
 
 const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ prevStep, nextStep }) => {
-  const { register, handleSubmit } = useForm();  // ✅ register added
+  const { register, handleSubmit } = useForm<FormFields>(); // ✅ Corrected Type
   const updateFormData = useFormStore((state) => state.updateFormData);
   const [fileList, setFileList] = useState<string[]>([]);
   const [selectedFile, setSelectedFile] = useState("");
@@ -192,7 +192,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
       try {
         const response = await fetch("/api/list-public-files");
         if (!response.ok) throw new Error("Failed to fetch files");
-        const files = await response.json();
+        const files: string[] = await response.json(); // ✅ Defined Type for files
         setFileList(files);
       } catch (error) {
         console.error("Error fetching files:", error);
@@ -201,12 +201,12 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
     fetchFiles();
   }, []);
 
-  const onSubmit = (data: any) => {  // ✅ Hook form will pass the form data
+  const onSubmit = (data: FormFields) => { // ✅ Corrected Type
     if (!selectedFile) {
       alert("Please select a file before proceeding.");
       return;
     }
-    updateFormData({ file_upload: selectedFile, ...data });  // ✅ Including form data
+    updateFormData({ file_upload: selectedFile, ...data });
     nextStep();
   };
 
@@ -240,18 +240,6 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
           )}
         </div>
       </div>
-
-      {/* ✅ New Input Field with register */}
-      <div>
-        <label className="block font-medium">Additional Notes</label>
-        <textarea
-          {...register("additional_notes")}  // ✅ Using register for form field
-          placeholder="Write any additional notes here..."
-          className="border p-2 w-full placeholder-gray-500"
-          rows={3}
-        />
-      </div>
-
       <div className="flex justify-between">
         <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
         <button type="submit" className="bg-blue-500 text-white p-2">Next</button>
@@ -259,6 +247,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
     </form>
   );
 };
+
 
 
 
