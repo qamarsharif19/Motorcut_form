@@ -183,17 +183,17 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
 
 // Step 2: File Upload
 const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ prevStep, nextStep }) => {
-  const { handleSubmit } = useForm<FormFields>(); // ✅ Removed 'register' (Not needed)
+  const { handleSubmit } = useForm<FormFields>();
   const updateFormData = useFormStore((state) => state.updateFormData);
-  const [fileList, setFileList] = useState<string[]>([]);
-  const [selectedFile, setSelectedFile] = useState("");
+  const [fileList, setFileList] = useState<{ name: string; url: string }[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchFiles = async () => {
       try {
         const response = await fetch("/api/list-public-files");
         if (!response.ok) throw new Error("Failed to fetch files");
-        const files: string[] = await response.json();
+        const files: { name: string; url: string }[] = await response.json();
         setFileList(files);
       } catch (error) {
         console.error("Error fetching files:", error);
@@ -202,32 +202,61 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
     fetchFiles();
   }, []);
 
+  const toggleSelection = (fileUrl: string) => {
+    setSelectedFiles((prev) => {
+      if (prev.includes(fileUrl)) {
+        return prev.filter((url) => url !== fileUrl); // Remove selection
+      } else if (prev.length < 3) {
+        return [...prev, fileUrl]; // Add selection (max 3)
+      }
+      return prev;
+    });
+  };
+
   const onSubmit = (data: FormFields) => {
-    if (!selectedFile) {
-      alert("Please select a file before proceeding.");
+    if (selectedFiles.length === 0) {
+      alert("Please select at least one background.");
       return;
     }
-    updateFormData({ file_upload: selectedFile, ...data });
+    updateFormData({ file_uploads: selectedFiles, ...data });
     nextStep();
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <label className="block font-medium">Select a file *</label>
-      <select value={selectedFile} onChange={(e) => setSelectedFile(e.target.value)} className="border p-2 w-full">
-        <option value="">Select a file</option>
-        {fileList.map((file, index) => (
-          <option key={index} value={file}>{file}</option>
-        ))}
-      </select>
+      {/* Title & Subheading */}
+      <h2 className="text-xl font-bold">Choose your Styles</h2>
+      <p className="text-gray-600">
+        Please browse and select up to 3 background templates which interest you. Our team will then use these
+        to help prepare examples for your inventory for your review.
+      </p>
 
-      <div className="flex justify-between">
-        <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
-        <button type="submit" className="bg-blue-500 text-white p-2">Next</button>
+      {/* Image Selection Grid */}
+      <div className="grid grid-cols-3 gap-4">
+        {fileList.map((file) => (
+          <div
+            key={file.name}
+            className={`border p-2 cursor-pointer ${
+              selectedFiles.includes(file.url) ? "border-green-500" : "border-gray-300"
+            }`}
+            onClick={() => toggleSelection(file.url)}
+          >
+            <img src={file.url} alt={file.name} className="w-full h-24 object-cover" />
+          </div>
+        ))}
+      </div>
+
+      {/* Buttons */}
+      <div className="flex justify-between mt-4">
+        <button type="button" onClick={prevStep} className="bg-gray-500 text-white px-4 py-2">Skip</button>
+        <button type="submit" className={`px-4 py-2 ${selectedFiles.length > 0 ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-600 cursor-not-allowed"}`} disabled={selectedFiles.length === 0}>
+          Next
+        </button>
       </div>
     </form>
   );
 };
+
 
 
 
