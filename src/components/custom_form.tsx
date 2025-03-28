@@ -181,8 +181,9 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   );
 };
 
+// Step 2: File Upload
 const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ prevStep, nextStep }) => {
-  const { register, handleSubmit } = useForm<FormFields>(); // ✅ Corrected Type
+  const { handleSubmit } = useForm<FormFields>(); // ✅ Removed 'register' (Not needed)
   const updateFormData = useFormStore((state) => state.updateFormData);
   const [fileList, setFileList] = useState<string[]>([]);
   const [selectedFile, setSelectedFile] = useState("");
@@ -192,7 +193,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
       try {
         const response = await fetch("/api/list-public-files");
         if (!response.ok) throw new Error("Failed to fetch files");
-        const files: string[] = await response.json(); // ✅ Defined Type for files
+        const files: string[] = await response.json();
         setFileList(files);
       } catch (error) {
         console.error("Error fetching files:", error);
@@ -201,7 +202,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
     fetchFiles();
   }, []);
 
-  const onSubmit = (data: FormFields) => { // ✅ Corrected Type
+  const onSubmit = (data: FormFields) => {
     if (!selectedFile) {
       alert("Please select a file before proceeding.");
       return;
@@ -213,33 +214,13 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <label className="block font-medium">Select a file *</label>
-      <div className="border p-2 w-full relative">
-        <button
-          type="button"
-          className="bg-gray-200 p-2 rounded w-full text-left"
-          onClick={() => document.getElementById("fileDropdown")?.classList.toggle("hidden")}
-        >
-          {selectedFile || "Select a file"}
-        </button>
-        <div id="fileDropdown" className="hidden absolute border mt-1 p-2 max-h-40 overflow-y-auto bg-white w-full">
-          {fileList.length > 0 ? (
-            fileList.map((file, index) => (
-              <div
-                key={index}
-                className="p-2 cursor-pointer hover:bg-gray-300"
-                onClick={() => {
-                  setSelectedFile(file);
-                  document.getElementById("fileDropdown")?.classList.add("hidden");
-                }}
-              >
-                {file}
-              </div>
-            ))
-          ) : (
-            <div className="p-2 text-gray-500">No files available</div>
-          )}
-        </div>
-      </div>
+      <select value={selectedFile} onChange={(e) => setSelectedFile(e.target.value)} className="border p-2 w-full">
+        <option value="">Select a file</option>
+        {fileList.map((file, index) => (
+          <option key={index} value={file}>{file}</option>
+        ))}
+      </select>
+
       <div className="flex justify-between">
         <button type="button" onClick={prevStep} className="bg-gray-500 text-white p-2">Back</button>
         <button type="submit" className="bg-blue-500 text-white p-2">Next</button>
@@ -247,6 +228,8 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
     </form>
   );
 };
+
+
 
 
 
