@@ -248,14 +248,16 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
         {filteredFiles.map((file) => (
           <div key={file.name} className="border p-2 flex flex-col items-center">
             {/* Image */}
-            <img
-              src={file.url}
-              alt={file.name}
-              className={`w-full h-24 object-cover cursor-pointer ${
-                selectedFiles.includes(file.url) ? "border-2 border-green-500" : "border-gray-300"
-              }`}
-              onClick={() => toggleSelection(file.url)}
-            />
+            <Image
+  src={file.url}
+  alt={file.name}
+  width={200} // Define width
+  height={100} // Define height
+  className={`w-full h-24 object-cover cursor-pointer ${
+    selectedFiles.includes(file.url) ? "border-2 border-green-500" : "border-gray-300"
+  }`}
+  onClick={() => toggleSelection(file.url)}
+/>
             {/* Preview Button */}
             <button
               className="mt-2 bg-blue-500 text-white px-4 py-1 text-sm rounded preview"

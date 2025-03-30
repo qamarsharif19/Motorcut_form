@@ -7,7 +7,7 @@ export async function GET() {
     const baseDirectory = path.join(process.cwd(), "public/uploads");
     const categories = ["studio", "indoor", "outdoor", "showroom", "simplistic"]; // Tabs ke naam
 
-    let fileData: { name: string; url: string; category: string }[] = [];
+    const fileData: { name: string; url: string; category: string }[] = [];
 
     categories.forEach((category) => {
       const categoryPath = path.join(baseDirectory, category);
