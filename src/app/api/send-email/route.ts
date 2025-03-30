@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
             selected_files
         } = requestData;
 
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"; // Ensure full URLs
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://motorcut-form.vercel.app/"; // Ensure full URLs
         const fileLinks = selected_files?.map((filePath: string) => {
             const fullUrl = filePath.startsWith("http") ? filePath : `${baseUrl}${filePath}`;
             return `<a href="${fullUrl}" target="_blank">${fullUrl}</a>`;
