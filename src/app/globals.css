@@ -208,6 +208,11 @@ button.nextq, button.submitq {
     color: #000;
 }
 /* tabs gallery responsive */
+.tabsq {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: space-between !important;
+}
 img.mx-w-full.h-auto .scrollq {
   height: 500px;
   object-fit: contain;

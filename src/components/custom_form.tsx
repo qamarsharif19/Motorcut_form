@@ -228,7 +228,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
       <p className="text-gray-600">Please browse and select up to 3 background templates.</p>
 
       {/* Tabs */}
-      <div className="flex space-x-4 border-b pb-2">
+      <div className="flex space-x-4 border-b pb-2 tabsq">
         {["Studio", "Indoor", "Outdoor", "Showroom", "Simplistic", "All"].map((tab) => (
           <button
             key={tab}
