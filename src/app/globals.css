@@ -208,11 +208,7 @@ button.nextq, button.submitq {
     color: #000;
 }
 /* tabs gallery responsive */
-.tabsq {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  justify-content: space-between !important;
-}
+
 img.mx-w-full.h-auto .scrollq {
   height: 500px;
   object-fit: contain;
@@ -241,8 +237,26 @@ button.absolute.top-2.right-2.text-gray-700.text-lg.font-bold {
   
     color: rgb(0, 0, 0);
 }
-
+.grid.grid-cols-2.gap-4.imggridq {
+  height: 500px;
+  overflow-y: scroll;
+}
 @media only screen and (max-width:767px) {
+  .grid.grid-cols-2.gap-4.imggridq {
+    height: 100%;
+    overflow-y: auto;
+}
+  .tabsq {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+  }
+  .nextskip {
+    padding: 12px 25px;
+    width: 120px !important;
+    background: #6934ba;
+    color: white;
+}
   .maindiv {
     max-width: 100%;
     display: flex;

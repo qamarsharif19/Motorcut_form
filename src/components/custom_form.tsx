@@ -244,7 +244,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
       </div>
 
       {/* Image Selection Grid */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4 imggridq">
         {filteredFiles.map((file) => (
           <div key={file.name} className="border p-2 flex flex-col items-center">
             {/* Image */}
@@ -273,7 +273,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
       {/* Buttons */}
       <div className="flex justify-between mt-4">
         <button type="button" onClick={prevStep} className="bg-gray-500 text-white px-4 py-2">Skip</button>
-        <button type="submit" className={`px-4 py-2 ${selectedFiles.length > 0 ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-600 cursor-not-allowed"}`} disabled={selectedFiles.length === 0}>
+        <button type="submit" className={`px-4 py-2 ${selectedFiles.length > 0 ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-600 cursor-not-allowed"} nextskip`} disabled={selectedFiles.length === 0}>
           Next
         </button>
       </div>
