@@ -204,7 +204,39 @@ button.nextq, button.submitq {
 
       justify-content: center;
   }
-    
+  h2.text-xl.font-bold {
+    color: #000;
+}
+/* tabs gallery responsive */
+img.mx-w-full.h-auto .scrollq {
+  height: 500px;
+  object-fit: contain;
+  overflow-y: scroll;
+}
+    /* second step button css */
+    button.px-4.py-2.bg-blue-500.text-white {
+      padding: 12px 25px;
+      width: 120px !important;
+      background: #7D3EDE;
+  }
+  button.bg-gray-500.text-white.px-4.py-2 {
+    padding: 12px 25px;
+    width: 120px !important;
+    background: black;
+}
+.grid.grid-cols-2.gap-4.scrollq {
+  overflow-y: scroll;
+  max-height: 500px !important;
+}
+.preview {
+  background: #7e41dc;
+}
+/* popup css */
+button.absolute.top-2.right-2.text-gray-700.text-lg.font-bold {
+  
+    color: rgb(0, 0, 0);
+}
+
 @media only screen and (max-width:767px) {
   .maindiv {
     max-width: 100%;

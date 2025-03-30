@@ -183,17 +183,19 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
 
 // Step 2: File Upload
 const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ prevStep, nextStep }) => {
-  const { handleSubmit } = useForm<FormFields>();
+  const { handleSubmit } = useForm();
   const updateFormData = useFormStore((state) => state.updateFormData);
-  const [fileList, setFileList] = useState<{ name: string; url: string }[]>([]);
+  const [fileList, setFileList] = useState<{ name: string; url: string; category: string }[]>([]);
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [activeTab, setActiveTab] = useState<string>("Studio");
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null); // Lightbox state
 
   useEffect(() => {
     const fetchFiles = async () => {
       try {
         const response = await fetch("/api/list-public-files");
         if (!response.ok) throw new Error("Failed to fetch files");
-        const files: { name: string; url: string }[] = await response.json();
+        const files: { name: string; url: string; category: string }[] = await response.json();
         setFileList(files);
       } catch (error) {
         console.error("Error fetching files:", error);
@@ -203,45 +205,65 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
   }, []);
 
   const toggleSelection = (fileUrl: string) => {
-    setSelectedFiles((prev) => {
-      if (prev.includes(fileUrl)) {
-        return prev.filter((url) => url !== fileUrl); // Remove selection
-      } else if (prev.length < 3) {
-        return [...prev, fileUrl]; // Add selection (max 3)
-      }
-      return prev;
-    });
+    setSelectedFiles((prev) =>
+      prev.includes(fileUrl) ? prev.filter((url) => url !== fileUrl) : [...prev, fileUrl]
+    );
   };
 
-  const onSubmit = (data: FormFields) => {
+  const onSubmit = () => {
     if (selectedFiles.length === 0) {
       alert("Please select at least one background.");
       return;
     }
-    updateFormData({ file_uploads: selectedFiles, ...data });
+    updateFormData({ selected_files: selectedFiles }); // ✅ Store correctly
+    console.log("Selected Files:", selectedFiles); // ✅ Debugging log
     nextStep();
   };
 
+  const filteredFiles = activeTab === "All" ? fileList : fileList.filter((file) => file.category === activeTab);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      {/* Title & Subheading */}
       <h2 className="text-xl font-bold">Choose your Styles</h2>
-      <p className="text-gray-600">
-        Please browse and select up to 3 background templates which interest you. Our team will then use these
-        to help prepare examples for your inventory for your review.
-      </p>
+      <p className="text-gray-600">Please browse and select up to 3 background templates.</p>
+
+      {/* Tabs */}
+      <div className="flex space-x-4 border-b pb-2">
+        {["Studio", "Indoor", "Outdoor", "Showroom", "Simplistic", "All"].map((tab) => (
+          <button
+            key={tab}
+            className={`px-4 py-2 text-sm font-medium ${
+              activeTab === tab ? "text-black border-b-2 border-purple-500" : "text-gray-500"
+            }`}
+            onClick={() => setActiveTab(tab)}
+            type="button"
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
 
       {/* Image Selection Grid */}
       <div className="grid grid-cols-3 gap-4">
-        {fileList.map((file) => (
-          <div
-            key={file.name}
-            className={`border p-2 cursor-pointer ${
-              selectedFiles.includes(file.url) ? "border-green-500" : "border-gray-300"
-            }`}
-            onClick={() => toggleSelection(file.url)}
-          >
-            <img src={file.url} alt={file.name} className="w-full h-24 object-cover" />
+        {filteredFiles.map((file) => (
+          <div key={file.name} className="border p-2 flex flex-col items-center">
+            {/* Image */}
+            <img
+              src={file.url}
+              alt={file.name}
+              className={`w-full h-24 object-cover cursor-pointer ${
+                selectedFiles.includes(file.url) ? "border-2 border-green-500" : "border-gray-300"
+              }`}
+              onClick={() => toggleSelection(file.url)}
+            />
+            {/* Preview Button */}
+            <button
+              className="mt-2 bg-blue-500 text-white px-4 py-1 text-sm rounded preview"
+              type="button"
+              onClick={() => setLightboxImage(file.url)}
+            >
+              Preview
+            </button>
           </div>
         ))}
       </div>
@@ -253,9 +275,27 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
           Next
         </button>
       </div>
+
+      {/* Lightbox Popup */}
+      {lightboxImage && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+          <div className="relative bg-white p-4 rounded-lg max-w-lg">
+            <button
+              className="absolute top-2 right-2 text-gray-700 text-lg font-bold"
+              onClick={() => setLightboxImage(null)}
+            >
+              ✖
+            </button>
+            <img src={lightboxImage} alt="Preview" className="w-full max-h-[500px] object-contain" />
+          </div>
+        </div>
+      )}
     </form>
   );
 };
+
+
+
 
 
 
@@ -274,15 +314,47 @@ const StepThree: React.FC<{ prevStep: () => void }> = ({ prevStep }) => {
   };
 
   return (
-    <div>
-      <form onSubmit={onSubmit} className="formq space-y-4">
-        <button type="button" onClick={prevStep} className="backq bg-gray-500 text-white p-2">Back</button>
-        <button type="submit" className="submitq bg-green-500 text-white p-2">Submit</button>
+    <div className="space-y-6">
+      {/* Booking Form (Pipedrive Scheduler) */}
+      <div className="flex justify-center">
+        <iframe 
+          src="https://motorcut.pipedrive.com/scheduler/QBv8ByhB/motorcut-meeting" 
+          title="Pipedrive Scheduler Embed" 
+          frameBorder="0" 
+          height="740px" 
+          width="100%" 
+          style={{ maxWidth: "800px" }} 
+          allowFullScreen
+        ></iframe>
+      </div>
+
+      {/* Form Buttons */}
+      <form onSubmit={onSubmit} className="formq space-y-4 text-center">
+        <button 
+          type="button" 
+          onClick={prevStep} 
+          className="backq bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Back
+        </button>
+        <button 
+          type="submit" 
+          className="submitq bg-green-500 text-white px-4 py-2 rounded"
+        >
+          Submit
+        </button>
       </form>
-      {successMessage && <div className="mt-4 p-4 bg-green-100 text-green-700 rounded">{successMessage}</div>}
+
+      {/* Success Message */}
+      {successMessage && (
+        <div className="mt-4 p-4 bg-green-100 text-green-700 rounded text-center">
+          {successMessage}
+        </div>
+      )}
     </div>
   );
 };
+
 
 const MultiStepForm: React.FC = () => {
   const [step, setStep] = useState(1);

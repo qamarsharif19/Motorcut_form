@@ -1,22 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import fs from "fs";
-import path from "path";
 
 export async function POST(req: NextRequest) {
     try {
-        const requestData = await req.json(); // Read request body
-        console.log("Received Data:", requestData); // Debugging log
-
-        // Ensure selected_files is an array, even if it's empty
-        const selected_files: string[] = Array.isArray(requestData.selected_files)
-            ? requestData.selected_files
-            : [];
+        const requestData = await req.json();
+        console.log("Received Data:", requestData); 
 
         const {
             first_name, last_name, user_email, user_phone,
-            company_name, company_url, country, user_message
+            company_name, company_url, country, user_message,
+            selected_files
         } = requestData;
+
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"; // Ensure full URLs
+        const fileLinks = selected_files?.map((filePath: string) => {
+            const fullUrl = filePath.startsWith("http") ? filePath : `${baseUrl}${filePath}`;
+            return `<a href="${fullUrl}" target="_blank">${fullUrl}</a>`;
+        }).join("<br>") || "No files selected.";
 
         const transporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
@@ -28,35 +28,26 @@ export async function POST(req: NextRequest) {
             },
         });
 
-        // Generate file attachments (only if files exist)
-        const attachments = selected_files
-            .map((fileName: string) => {
-                const filePath = path.join(process.cwd(), "public/uploads", fileName);
-
-                if (fs.existsSync(filePath)) {
-                    return {
-                        filename: fileName,
-                        path: filePath, // Attach file from server
-                    };
-                } else {
-                    console.warn(`File not found: ${filePath}`);
-                    return null;
-                }
-            })
-            .filter((attachment): attachment is { filename: string; path: string } => attachment !== null); // ✅ Type-safe filter
-
         const mailOptions = {
             from: `"${first_name} ${last_name}" <${process.env.EMAIL_USER}>`,
             to: "qamarwordpress@gmail.com, rednice@filmla.org",
-            subject: "New Form Submission with Attachments",
-            text: `You received a new message from ${first_name} ${last_name}.\n\n
-                Email: ${user_email}\nPhone: ${user_phone}\nCompany: ${company_name}\n
-                Website: ${company_url}\nCountry: ${country}\n\nMessage:\n${user_message}`,
-            attachments, // ✅ Now correctly typed
+            subject: "New Form Submission with Selected Files",
+            html: `
+                <h2>New Form Submission</h2>
+                <p><strong>Name:</strong> ${first_name} ${last_name}</p>
+                <p><strong>Email:</strong> ${user_email}</p>
+                <p><strong>Phone:</strong> ${user_phone}</p>
+                <p><strong>Company:</strong> ${company_name}</p>
+                <p><strong>Website:</strong> ${company_url}</p>
+                <p><strong>Country:</strong> ${country}</p>
+                <p><strong>Message:</strong><br>${user_message}</p>
+                <h3>Selected Files:</h3>
+                <p>${fileLinks}</p>
+            `,
         };
 
         await transporter.sendMail(mailOptions);
-        return NextResponse.json({ message: "Email sent successfully with attachments" }, { status: 200 });
+        return NextResponse.json({ message: "Email sent successfully with file links" }, { status: 200 });
 
     } catch (error) {
         console.error("Error sending email:", error);

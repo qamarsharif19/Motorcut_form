@@ -4,15 +4,24 @@ import path from "path";
 
 export async function GET() {
   try {
-    // "public/uploads" فولڈر میں موجود فائلز کو لسٹ کریں
-    const directoryPath = path.join(process.cwd(), "public/uploads");
-    const files = fs.readdirSync(directoryPath); // تمام فائلز پڑھیں
+    const baseDirectory = path.join(process.cwd(), "public/uploads");
+    const categories = ["studio", "indoor", "outdoor", "showroom", "simplistic"]; // Tabs ke naam
 
-    // ہر فائل کا URL بنائیں
-    const fileData = files.map((file) => ({
-      name: file,
-      url: `/uploads/${file}`, // Public path for frontend
-    }));
+    let fileData: { name: string; url: string; category: string }[] = [];
+
+    categories.forEach((category) => {
+      const categoryPath = path.join(baseDirectory, category);
+      if (fs.existsSync(categoryPath)) {
+        const files = fs.readdirSync(categoryPath);
+        files.forEach((file) => {
+          fileData.push({
+            name: file,
+            url: `/uploads/${category}/${file}`, // File ka public URL
+            category: category.charAt(0).toUpperCase() + category.slice(1), // First letter capital for frontend
+          });
+        });
+      }
+    });
 
     return NextResponse.json(fileData, { status: 200 });
   } catch (error: unknown) {
