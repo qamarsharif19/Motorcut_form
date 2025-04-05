@@ -14,7 +14,14 @@
     --foreground: #ededed;
   }
 }
-
+.preview{
+display: none;
+}
+.object-cover {
+  -o-object-fit: cover;
+  object-fit: contain;
+  height: 200px;
+}
 
 body {
   background-color: white;
@@ -199,6 +206,12 @@ button.nextq, button.submitq {
     label, input, textarea {
       font-size: 14px;
     }
+    select.border.border-gray-300.w-full.py-2.px-3.text-\[\#94A3B8\].focus\:outline-none.focus\:ring-2.focus\:ring-purple-500.shadow-sm {
+      font-size: 14px !important;
+      box-shadow: 0px 1px 2px 0px #1018280D !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 8px;
+  }
     .logo_image_div {
       display: flex;
 
@@ -241,7 +254,17 @@ button.absolute.top-2.right-2.text-gray-700.text-lg.font-bold {
   height: 500px;
   overflow-y: scroll;
 }
+select option:hover {
+  color: white !important;
+  background: #7d3ede !important;
+}
 @media only screen and (max-width:767px) {
+  .imagediv{
+    display: none;
+  }
+  select.border.border-gray-300.w-full.py-2.px-3.text-\[\#94A3B8\].focus\:outline-none.focus\:ring-2.focus\:ring-purple-500.shadow-sm {
+    font-size: 12px !important;
+}
   .grid.grid-cols-2.gap-4.imggridq {
     height: 100%;
     overflow-y: auto;

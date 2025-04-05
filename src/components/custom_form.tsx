@@ -19,6 +19,34 @@ interface FormFields {
   user_message?: string;
   file_upload?: string;
 }
+const countries = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia",
+  "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados",
+  "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina",
+  "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia",
+  "Cameroon", "Canada", "Cape Verde", "Central African Republic", "Chad", "Chile", "China",
+  "Colombia", "Comoros", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic",
+  "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador",
+  "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France",
+  "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea",
+  "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia",
+  "Iran", "Iraq", "Ireland", "Israel", "Italy", "Ivory Coast", "Jamaica", "Japan", "Jordan",
+  "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon",
+  "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar",
+  "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania",
+  "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco",
+  "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua",
+  "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau",
+  "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar",
+  "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent",
+  "Samoa", "San Marino", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone",
+  "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea",
+  "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria",
+  "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Togo", "Tonga", "Trinidad and Tobago",
+  "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates",
+  "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City",
+  "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+];
 
 const useFormStore = create<{
   formData: FormFields;
@@ -62,22 +90,20 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
   return (
     <div className="formdiv">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Heading */}
         <div className="logo_image_div">
-         <Image 
-            src="/motorcut_logo.png"  
-            alt="Company Logo" 
-            width={150} 
-            height={50} 
+          <Image
+            src="/motorcut_logo.png"
+            alt="Company Logo"
+            width={150}
+            height={50}
             className="h-auto logoimage"
           />
-          </div>
+        </div>
         <h1 className="text-2xl font-bold text-left">Register your Interest</h1>
         <p className="fillform">
-          Kindly fill out the form below to register your interest. A member of the team will reach out to you to assist with setting up you&apos;re free trial.
+          Kindly fill out the form below to register your interest. A member of the team will reach out to you to assist with setting up your free trial.
         </p>
 
-        {/* First Name & Last Name */}
         <div className="grid grid-cols-2 gap-4 umr">
           <div>
             <label className="block font-medium">First Name *</label>
@@ -97,7 +123,6 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           </div>
         </div>
 
-        {/* Email */}
         <div>
           <label className="block font-medium">Email *</label>
           <input
@@ -107,7 +132,6 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           />
         </div>
 
-        {/* Phone & Country */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block font-medium">Phone *</label>
@@ -120,15 +144,23 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           </div>
           <div>
             <label className="block font-medium">Country *</label>
-            <input
+            <select
               {...register("country", { required: true })}
-              placeholder="Enter your country"
-              className="border border-gray-300 w-full focus:ring-2 focus:ring-purple-500 placeholder-[#94A3B8]"
-            />
+               className="border border-gray-300 w-full py-2 px-3 text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-purple-500 shadow-sm"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select your country
+              </option>
+              {countries.map((country) => (
+                <option key={country} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
-        {/* Company Name & Website URL */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block font-medium">Company Name *</label>
@@ -148,7 +180,6 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           </div>
         </div>
 
-        {/* Inventory Size */}
         <div>
           <label className="block font-medium">Inventory Size *</label>
           <input
@@ -158,7 +189,6 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           />
         </div>
 
-        {/* Leave a Message */}
         <div>
           <label className="block font-medium">Leave a Message</label>
           <textarea
@@ -169,7 +199,6 @@ const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {
           />
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="nextq bg-purple-600 text-white w-full hover:bg-purple-700 transition"
@@ -260,7 +289,7 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
 />
             {/* Preview Button */}
             <button
-              className="mt-2 bg-blue-500 text-white px-4 py-1 text-sm rounded preview"
+              className="preview mt-2 bg-blue-500 text-white px-4 py-1 text-sm rounded preview"
               type="button"
               onClick={() => setLightboxImage(file.url)}
             >
@@ -319,15 +348,15 @@ const StepThree: React.FC<{ prevStep: () => void }> = ({ prevStep }) => {
     <div className="space-y-6">
       {/* Booking Form (Pipedrive Scheduler) */}
       <div className="flex justify-center">
-        <iframe 
-          src="https://motorcut.pipedrive.com/scheduler/QBv8ByhB/motorcut-meeting" 
-          title="Pipedrive Scheduler Embed" 
-          frameBorder="0" 
-          height="740px" 
-          width="100%" 
-          style={{ maxWidth: "800px" }} 
-          allowFullScreen
-        ></iframe>
+      <iframe
+  src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0LiStxQJ_r9Tg2B9OJrW8Wk1lcVLx5eRrCq5B4n11ur_GYqKWqzZmK0734KOUtdGxLguqORg5N?gv=true"
+  style={{ border: 0 }}
+  width="100%"
+  height="600"
+  frameBorder="0"
+/>
+
+
       </div>
 
       {/* Form Buttons */}
