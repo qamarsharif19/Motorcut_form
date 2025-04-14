@@ -140,6 +140,9 @@ li:hover span.dial-code {
 
   color: black !important;
 }
+.tabsq button:last-child {
+  display: none;
+}
 button {
   font-family: 'Manrope', sans-serif;
   padding: 12px;
@@ -258,7 +261,28 @@ select option:hover {
   color: white !important;
   background: #7d3ede !important;
 }
+@media only screen and (max-width:980px) {
+  .tabsq {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+  }
+  button.px-4.py-2.text-sm.font-medium.text-gray-500 {
+    margin-left: 5px;
+}
+ .tabsq {
+    padding: 0;
+}
+}
 @media only screen and (max-width:767px) {
+  .tabsq {
+    justify-content: start !important;
+}
+ 
+
+  button.px-4.py-2.text-sm.font-medium.text-gray-500 {
+    margin-left: 10px;
+}
   .imagediv{
     display: none;
   }
@@ -269,11 +293,7 @@ select option:hover {
     height: 100%;
     overflow-y: auto;
 }
-  .tabsq {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: space-between !important;
-  }
+ 
   .nextskip {
     padding: 12px 25px;
     width: 120px !important;
