@@ -14,13 +14,20 @@
     --foreground: #ededed;
   }
 }
+button.bkhome {
+  padding: 12px 25px !important;
+  background: white;
+  border-radius: 100px;
+  margin-top: 15px;
+  color: black;
+}
 .preview{
 display: none;
 }
 .object-cover {
   -o-object-fit: cover;
   object-fit: contain;
-  height: 200px;
+  height: 157px;
 }
 
 body {
@@ -262,6 +269,9 @@ select option:hover {
   background: #7d3ede !important;
 }
 @media only screen and (max-width:980px) {
+  .object-cover {
+    height: 115px;
+  }
   .tabsq {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -278,6 +288,7 @@ select option:hover {
   .tabsq {
     justify-content: start !important;
 }
+
  
 
   button.px-4.py-2.text-sm.font-medium.text-gray-500 {

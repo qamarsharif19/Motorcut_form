@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { create } from "zustand";
@@ -317,7 +317,14 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
             >
               ✖
             </button>
-            <img src={lightboxImage} alt="Preview" className="w-full max-h-[500px] object-contain" />
+            <Image
+      src={lightboxImage}
+      alt="Preview"
+      className="w-full max-h-[500px] object-contain"
+      width={500} // Specify the width
+      height={500} // Specify the height
+      priority={false} // Optional: Set to `true` for above-the-fold images
+    />
           </div>
         </div>
       )}
@@ -335,15 +342,20 @@ const StepTwo: React.FC<{ prevStep: () => void; nextStep: () => void }> = ({ pre
 
 
 const StepThree: React.FC<{ prevStep: () => void }> = ({ prevStep }) => {
+  const router = useRouter();
   const formData = useFormStore((state) => state.formData);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage] = useState("");
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    sendPartialData(formData);
-    setSuccessMessage("Form submitted successfully!");
-  };
-
+    try {
+      await sendPartialData(formData); // wait for async operation
+      router.push('/thank-you'); // redirect after successful submission
+    } catch (error) {
+      console.error("Form submission failed:", error);
+      // optionally, show error message to user
+    }
+  }
   return (
     <div className="space-y-6">
       {/* Booking Form (Pipedrive Scheduler) */}
@@ -372,7 +384,7 @@ const StepThree: React.FC<{ prevStep: () => void }> = ({ prevStep }) => {
           type="submit" 
           className="submitq bg-green-500 text-white px-4 py-2 rounded"
         >
-          Submit
+          Finish
         </button>
       </form>
 
