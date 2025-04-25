@@ -73,9 +73,20 @@ const sendPartialData = async (data: FormFields) => {
     if (!response.ok) throw new Error("Failed to send email");
 
     console.log("Email sent successfully!");
+    // 2. Send to Google Sheets
+  
+    const sheetResponse = await fetch("/api/forward-to-google-sheet", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    if (!sheetResponse.ok) throw new Error("Failed to save to Google Sheet");
+    console.log("✅ Data saved to Google Sheet!");
   } catch (error) {
-    console.error("Error sending form data:", error);
+    console.error("❌ Error:", error);
   }
+  
 };
 
 const StepOne: React.FC<{ nextStep: () => void }> = ({ nextStep }) => {

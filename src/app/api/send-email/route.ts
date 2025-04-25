@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
 
         const mailOptions = {
             from: `"${first_name} ${last_name}" <${process.env.EMAIL_USER}>`,
-            to: "admin@motorcut.com", 
+            to: "qamarwordpress@gmail.com", 
             subject: "New Form Submission with Selected Files",
             html: `
                 <h2>New Form Submission</h2>
